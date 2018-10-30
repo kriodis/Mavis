@@ -1,0 +1,17 @@
+  :host {
+    ion-content {
+    --background: url('../../../assets/background-final.jpg') no-repeat fixed center;
+    }
+  }
+  .login-logo{
+    width: 200px; 
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .login-title{
+    margin-top: 100px;
+    font-size: var(--ion-header-size, 26px);
+  }

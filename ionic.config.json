@@ -1,0 +1,7 @@
+{
+  "name": "mavis",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
