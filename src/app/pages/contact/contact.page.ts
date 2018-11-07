@@ -8,9 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['contact.page.scss']
 })
 export class ContactPage {
-  contacts: UserModel[];
+  contacts;
   constructor(private userService: UserService) {
     this.contacts = this.userService.getUser();
+    console.log(this.contacts);
   }
 
   delete(contact) {

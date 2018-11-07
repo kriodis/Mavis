@@ -15,10 +15,18 @@ export class ChatPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService) {
     this.userId = this.activatedRoute.snapshot.params['id'];
-    this.contact = this.userService.getUserById(this.userId);
+    this.userService.getUserById(this.userId).valueChanges().subscribe(
+      (data: UserModel) => {
+        this.contact = data;
+      },
+      (error) => {
+        console.log(error);
+
+      })
   }
 
   ngOnInit() {
+    console.log(this.contact);
   }
 
 }
