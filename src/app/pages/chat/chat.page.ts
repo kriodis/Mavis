@@ -1,7 +1,8 @@
 import { UserModel } from "./../../models/userModel.model";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "../../services/user.service";
+import { Content,List  } from "@ionic/angular";
 
 @Component({
   selector: "app-chat",
@@ -9,10 +10,13 @@ import { UserService } from "../../services/user.service";
   styleUrls: ["./chat.page.scss"]
 })
 export class ChatPage implements OnInit {
+  @ViewChild(Content) contentArea: Content;
+  @ViewChild(List, {read: ElementRef}) chatList: ElementRef;
   userId: any;
   contact: UserModel;
   currentChat: any[];
-  message: string;
+  message: string = "";
+  private mutationObserver: MutationObserver;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,19 +38,41 @@ export class ChatPage implements OnInit {
 
   ngOnInit() {
     this.currentChat = [
-      { user: "user", message: "hey, whaasdaaaaaaa aaaaaaaaaaaaaaaaawdawdawdawdadwat are you doing?" },
-      { user: "currentUser", message: "learnisdfsdfsdfsdfsdfsdffsd fsdfsdfng angular 4" },
+      {
+        user: "user",
+        message:
+          "hey, whaasdaaaaaaa aaaaaaaaaaaaaaaaawdawdawdawdadwat are you doing?"
+      },
+      {
+        user: "currentUser",
+        message: "learnisdfsdfsdfsdfsdfsdffsd fsdfsdfng angular 4"
+      },
       { user: "user", message: "cool is great" },
       { user: "currentUser", message: "i know that's right" },
       { user: "user", message: "hey, what are you doing?" },
-      { user: "currentUser", message: "learnisdfsdfsasdasdsadsadadfsdfsdfsdffsdfsdfsdfng angular 4" },
+      {
+        user: "currentUser",
+        message: "learnisdfsdfsasdasdsadsadadfsdfsdfsdffsdfsdfsdfng angular 4"
+      },
       { user: "user", message: "cool is greasdat" },
       { user: "currentUser", message: "i know that's right" }
     ];
   }
 
-  chat() {
-    const newMessage = Object.assign(this.message, { user: 'anonymous'});
-    this.currentChat.push(newMessage);
+  ionViewDidLoad(){
+ 
+    this.mutationObserver = new MutationObserver((mutations) => {
+        this.contentArea.scrollToBottom();
+    });
+
+    this.mutationObserver.observe(this.chatList.nativeElement, {
+        childList: true
+    });
+
+}
+
+  sendMessage() {
+    this.currentChat.push({ user: "currentUser", message: this.message });
+    this.message = "";
   }
 }

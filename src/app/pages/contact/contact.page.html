@@ -15,7 +15,7 @@
 </ion-fab>
 
 <ion-content color="light">
-  <ion-list>
+  <ion-list no-lines>
     <ion-item-sliding *ngFor="let contact of contacts">
       <ion-item (click)="chat(contact)" routerLink="/chat/{{contact.id}}">
         <ion-avatar slot="start">
