@@ -7,16 +7,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="light" padding> </ion-content>
+<ion-content color="light">
+    <ion-item *ngFor="let chit of currentChat" >
+        <div *ngIf="chit.user == 'currentUser'" slot="end" class="chat-currentUser">
+          <span>{{ chit.user }}: {{ chit.message }}</span>
+        </div>
+        <div *ngIf="chit.user == 'user'" slot="start" class="chat-user">
+            <span>{{ chit.user }}: {{ chit.message }}</span>
+        </div>
+    </ion-item>
+</ion-content>
 
-<ion-footer  no-border>
+<ion-footer no-border>
   <ion-toolbar color="light">
     <ion-grid>
       <ion-row>
-          <ion-col size="10"><ion-input type="text" autofocus></ion-input></ion-col>
+        <ion-col size="10"
+          ><ion-input [(ngModel)]="message" type="text" autofocus></ion-input
+        ></ion-col>
         <ion-col>
           <ion-fab>
-            <ion-fab-button mini color="warning">
+            <ion-fab-button (click)="chat()" mini color="warning">
               <ion-icon name="send"></ion-icon>
             </ion-fab-button>
           </ion-fab>
