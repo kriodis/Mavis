@@ -11,7 +11,7 @@ import { Content,List  } from "@ionic/angular";
 })
 export class ChatPage implements OnInit {
   @ViewChild(Content) contentArea: Content;
-  @ViewChild(List, {read: ElementRef}) chatList: ElementRef;
+  //@ViewChild(List, {read: ElementRef}) chatList: ElementRef;
   userId: any;
   contact: UserModel;
   currentChat: any[];
@@ -61,18 +61,19 @@ export class ChatPage implements OnInit {
 
   ionViewDidLoad(){
  
-    this.mutationObserver = new MutationObserver((mutations) => {
-        this.contentArea.scrollToBottom();
-    });
+  //   this.mutationObserver = new MutationObserver(() => {
+  // //      this.contentArea.scrollToBottom();
+  //   });
 
-    this.mutationObserver.observe(this.chatList.nativeElement, {
-        childList: true
-    });
+  //   this.mutationObserver.observe(this.chatList.nativeElement, {
+  //       childList: true
+  //   });
 
 }
 
   sendMessage() {
     this.currentChat.push({ user: "currentUser", message: this.message });
     this.message = "";
+    this.contentArea.scrollToBottom();
   }
 }
